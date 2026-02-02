@@ -1,0 +1,344 @@
+/* Catering Equipment Calculator - embeddable widget */
+:root {
+  --cec-font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --cec-primary: #70C58C;
+  --cec-primary-hover: #0F281E;
+  --cec-bg: #F2F0EA;
+  --cec-text: #0F281E;
+  --cec-text-muted: #5a6a64;
+  --cec-border: #CEAF97;
+  --cec-accent: #B36131;
+  --cec-radius: 10px;
+  --cec-radius-sm: 6px;
+  --cec-shadow: 0 2px 12px rgba(15, 40, 30, 0.08);
+}
+
+.cec {
+  font-family: var(--cec-font-sans);
+  box-sizing: border-box;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.cec *,
+.cec *::before,
+.cec *::after {
+  box-sizing: border-box;
+}
+
+.cec-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.cec-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cec-section {
+  margin-bottom: 24px;
+}
+
+.cec-section-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(0, 0, 0, 0.55);
+  margin: 0 0 10px 0;
+}
+
+.cec-input {
+  width: 100%;
+  max-width: 120px;
+  padding: 10px 14px;
+  font-size: 1rem;
+  font-family: inherit;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: var(--cec-radius-sm);
+  background: #fff;
+}
+
+.cec-input:focus {
+  outline: none;
+  border-color: var(--cec-primary);
+  box-shadow: 0 0 0 3px rgba(112, 197, 140, 0.25);
+}
+
+.cec-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cec-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: var(--cec-radius-sm);
+  background: #fff;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.cec-option:hover {
+  border-color: rgba(0, 0, 0, 0.35);
+}
+
+.cec-option.selected {
+  border-color: var(--cec-primary);
+  background: rgba(112, 197, 140, 0.15);
+  color: var(--cec-primary-hover);
+}
+
+.cec-option input {
+  margin: 0;
+  accent-color: var(--cec-primary);
+}
+
+.cec-checkboxes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 10px 20px;
+}
+
+.cec-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.cec-checkbox-label input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--cec-primary);
+}
+
+.cec-number-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.cec-number-row label {
+  min-width: 160px;
+  font-size: 0.9rem;
+}
+
+.cec-stepper {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.cec-stepper button {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: var(--cec-radius-sm);
+  background: #fff;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.cec-stepper button:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.cec-stepper span {
+  min-width: 36px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.cec-radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 24px;
+  margin-bottom: 12px;
+}
+
+.cec-radio-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.cec-radio-label input {
+  accent-color: var(--cec-primary);
+}
+
+.cec-results {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 2px solid rgba(0, 0, 0, 0.08);
+}
+
+.cec-results-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0 0 16px 0;
+}
+
+.cec-results-grid {
+  display: grid;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+@media (min-width: 640px) {
+  .cec-results-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.cec-result-block {
+  background: rgba(0, 0, 0, 0.03);
+  border-radius: var(--cec-radius-sm);
+  padding: 14px 16px;
+}
+
+.cec-result-block h4 {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(0, 0, 0, 0.55);
+  margin: 0 0 10px 0;
+}
+
+.cec-result-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.cec-result-list li {
+  padding: 4px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cec-result-list li::before {
+  content: '├';
+  color: rgba(0, 0, 0, 0.4);
+  font-size: 0.85rem;
+}
+
+.cec-result-list li:last-child::before {
+  content: '└';
+}
+
+.cec-safety {
+  font-size: 0.85rem;
+  color: var(--cec-text);
+  margin-bottom: 20px;
+  padding: 12px;
+  background: rgba(179, 97, 49, 0.08);
+  border-radius: var(--cec-radius-sm);
+  border-left: 3px solid var(--cec-accent);
+}
+
+.cec-safety h4 {
+  margin: 0 0 8px 0;
+  font-size: 0.9rem;
+}
+
+.cec-safety ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.cec-safety li {
+  margin-bottom: 4px;
+}
+
+.cec-quote {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.04);
+  border-radius: var(--cec-radius);
+  margin-top: 20px;
+}
+
+.cec-quote-input {
+  flex: 1;
+  min-width: 200px;
+  padding: 12px 14px;
+  font-size: 1rem;
+  font-family: inherit;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: var(--cec-radius-sm);
+  background: #fff;
+}
+
+.cec-quote-btn {
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: inherit;
+  border: none;
+  border-radius: var(--cec-radius-sm);
+  background: var(--cec-primary);
+  color: var(--cec-primary-hover);
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.05s;
+}
+
+.cec-quote-btn:hover {
+  background: var(--cec-primary-hover);
+  color: #fff;
+}
+
+.cec-quote-btn:hover {
+  opacity: 0.92;
+}
+
+.cec-quote-btn:active {
+  transform: scale(0.98);
+}
+
+.cec-buffet-box {
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: var(--cec-radius-sm);
+  padding: 16px;
+  margin-top: 8px;
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.cec-inline-percent {
+  width: 64px;
+  padding: 6px 8px;
+  font-size: 0.9rem;
+  margin-left: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}

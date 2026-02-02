@@ -1,0 +1,39 @@
+:root {
+  --tent-bg: #F2F0EA;
+  --tent-card: #ffffff;
+  --tent-border: #CEAF97;
+  --tent-text: #0F281E;
+  --tent-text-muted: #5a6a64;
+  --tent-accent: #70C58C;
+  --tent-accent-hover: #0F281E;
+  --tent-success: #70C58C;
+  --tent-warning: #B36131;
+  --tent-radius: 12px;
+  --tent-shadow: 0 1px 3px rgba(15, 40, 30, 0.08);
+  --tent-shadow-lg: 0 4px 12px rgba(15, 40, 30, 0.1);
+  font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--tent-bg);
+  color: var(--tent-text);
+  line-height: 1.5;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+input, button, select {
+  font-family: inherit;
+}
+
+button {
+  cursor: pointer;
+}

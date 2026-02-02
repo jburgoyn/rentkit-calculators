@@ -1,0 +1,351 @@
+/* Table & Chair Calculator - embeddable widget styles */
+:root {
+  --tcc-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --tcc-radius: 10px;
+  --tcc-radius-sm: 6px;
+  --tcc-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  --tcc-shadow-lg: 0 4px 24px rgba(0, 0, 0, 0.12);
+}
+
+.tcc {
+  font-family: var(--tcc-font-sans);
+  box-sizing: border-box;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.tcc *,
+.tcc *::before,
+.tcc *::after {
+  box-sizing: border-box;
+}
+
+/* Header */
+.tcc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.tcc-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tcc-title-icon {
+  font-size: 1.75rem;
+}
+
+/* Grid layout: form left, preview right on desktop */
+.tcc-grid {
+  display: grid;
+  gap: 24px;
+}
+
+@media (min-width: 768px) {
+  .tcc-grid {
+    grid-template-columns: 1fr 280px;
+  }
+}
+
+/* Section */
+.tcc-section {
+  margin-bottom: 24px;
+}
+
+.tcc-section-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(0, 0, 0, 0.55);
+  margin: 0 0 10px 0;
+}
+
+/* Input */
+.tcc-input {
+  width: 100%;
+  max-width: 160px;
+  padding: 10px 14px;
+  font-size: 1rem;
+  font-family: inherit;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: var(--tcc-radius-sm);
+  background: #fff;
+}
+
+.tcc-input:focus {
+  outline: none;
+  border-color: var(--tcc-primary, #1976d2);
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.2);
+}
+
+/* Event style options */
+.tcc-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tcc-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: var(--tcc-radius-sm);
+  background: #fff;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.tcc-option:hover {
+  border-color: rgba(0, 0, 0, 0.35);
+}
+
+.tcc-option.selected {
+  border-color: var(--tcc-primary, #1976d2);
+  background: rgba(25, 118, 210, 0.08);
+  color: var(--tcc-primary, #1976d2);
+}
+
+.tcc-option input {
+  margin: 0;
+  accent-color: var(--tcc-primary, #1976d2);
+}
+
+/* Table type cards */
+.tcc-table-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tcc-table-card {
+  flex: 1 1 100px;
+  min-width: 80px;
+  padding: 14px 10px;
+  text-align: center;
+  border: 2px solid rgba(0, 0, 0, 0.15);
+  border-radius: var(--tcc-radius-sm);
+  background: #fff;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, transform 0.1s;
+}
+
+.tcc-table-card:hover {
+  border-color: rgba(0, 0, 0, 0.3);
+}
+
+.tcc-table-card.selected {
+  border-color: var(--tcc-primary, #1976d2);
+  background: rgba(25, 118, 210, 0.06);
+}
+
+.tcc-table-card-size {
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 2px;
+}
+
+.tcc-table-card-type {
+  font-size: 0.75rem;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+/* Checkboxes */
+.tcc-checkboxes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 10px 20px;
+}
+
+.tcc-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.tcc-checkbox-label input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--tcc-primary, #1976d2);
+}
+
+.tcc-checkbox-inline {
+  margin-left: 8px;
+  width: 60px;
+  padding: 4px 8px;
+  font-size: 0.85rem;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+/* Preview panel */
+.tcc-preview {
+  background: rgba(0, 0, 0, 0.03);
+  border-radius: var(--tcc-radius);
+  padding: 20px;
+  height: fit-content;
+  position: sticky;
+  top: 20px;
+}
+
+@media (max-width: 767px) {
+  .tcc-preview {
+    position: static;
+  }
+}
+
+.tcc-preview-visual {
+  width: 100%;
+  aspect-ratio: 1;
+  max-height: 240px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: var(--tcc-radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  margin-bottom: 16px;
+  border: 1px dashed rgba(0, 0, 0, 0.1);
+}
+
+/* Results */
+.tcc-results {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 2px solid rgba(0, 0, 0, 0.08);
+}
+
+.tcc-results-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0 0 16px 0;
+}
+
+.tcc-results-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 24px;
+  margin-bottom: 20px;
+}
+
+.tcc-results-stat {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1rem;
+}
+
+.tcc-results-stat-icon {
+  font-size: 1.5rem;
+}
+
+.tcc-results-stat strong {
+  font-weight: 600;
+}
+
+.tcc-results-breakdown {
+  font-size: 0.9rem;
+  color: rgba(0, 0, 0, 0.7);
+  margin-bottom: 16px;
+  padding-left: 16px;
+}
+
+.tcc-results-breakdown li {
+  margin-bottom: 4px;
+}
+
+.tcc-results-notes {
+  font-size: 0.85rem;
+  color: rgba(0, 0, 0, 0.6);
+  margin-bottom: 20px;
+  padding: 12px;
+  background: rgba(25, 118, 210, 0.06);
+  border-radius: var(--tcc-radius-sm);
+  border-left: 3px solid var(--tcc-primary, #1976d2);
+}
+
+.tcc-results-notes p {
+  margin: 0 0 4px 0;
+}
+
+.tcc-results-notes p:last-child {
+  margin-bottom: 0;
+}
+
+/* Quote CTA */
+.tcc-quote {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.04);
+  border-radius: var(--tcc-radius);
+  margin-top: 20px;
+}
+
+.tcc-quote-input {
+  flex: 1;
+  min-width: 200px;
+  padding: 12px 14px;
+  font-size: 1rem;
+  font-family: inherit;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: var(--tcc-radius-sm);
+  background: #fff;
+}
+
+.tcc-quote-btn {
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: inherit;
+  border: none;
+  border-radius: var(--tcc-radius-sm);
+  background: var(--tcc-primary, #1976d2);
+  color: #fff;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.05s;
+}
+
+.tcc-quote-btn:hover {
+  opacity: 0.92;
+}
+
+.tcc-quote-btn:active {
+  transform: scale(0.98);
+}
+
+/* Chair style select */
+.tcc-select {
+  width: 100%;
+  max-width: 220px;
+  padding: 10px 14px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: var(--tcc-radius-sm);
+  background: #fff;
+  cursor: pointer;
+}
+
+.tcc-select:focus {
+  outline: none;
+  border-color: var(--tcc-primary, #1976d2);
+}

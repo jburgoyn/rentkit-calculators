@@ -1,0 +1,106 @@
+.sab-props {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px;
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  min-width: 200px;
+}
+
+.sab-props-title {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(0, 0, 0, 0.5);
+  margin: 0;
+}
+
+.sab-props-empty {
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.5);
+  margin: 0;
+}
+
+.sab-props-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sab-props-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sab-props-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.sab-props-value {
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.85);
+}
+
+.sab-props-input {
+  padding: 8px 10px;
+  font-size: 13px;
+  font-family: inherit;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  background: #fff;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.sab-props-input:focus {
+  outline: none;
+  border-color: var(--sab-primary, #1976d2);
+}
+
+.sab-props-colors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.sab-props-color {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.1s, border-color 0.15s;
+}
+
+.sab-props-color:hover {
+  transform: scale(1.1);
+}
+
+.sab-props-color.selected {
+  border-color: #37474f;
+  box-shadow: 0 0 0 1px #fff;
+}
+
+.sab-props-delete {
+  margin-top: 8px;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-family: inherit;
+  color: #c62828;
+  background: transparent;
+  border: 1px solid rgba(198, 40, 40, 0.4);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.sab-props-delete:hover {
+  background: rgba(198, 40, 40, 0.08);
+}

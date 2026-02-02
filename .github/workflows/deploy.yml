@@ -1,0 +1,173 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: |
+            linen-calculator/package-lock.json
+            dance-floor-calculator/package-lock.json
+            catering-equipment-calculator/package-lock.json
+            seating-arrangement-builder/package-lock.json
+            tools/tent-size-calculator/package-lock.json
+
+      - name: Build Linen Calculator
+        run: |
+          cd linen-calculator
+          npm ci
+          npm run build
+
+      - name: Build Dance Floor Calculator
+        run: |
+          cd dance-floor-calculator
+          npm ci
+          npm run build
+
+      - name: Build Catering Equipment Calculator
+        run: |
+          cd catering-equipment-calculator
+          npm ci
+          npm run build
+
+      - name: Build Seating Arrangement Builder
+        run: |
+          cd seating-arrangement-builder
+          npm ci
+          npm run build
+
+      - name: Build Tent Size Calculator
+        run: |
+          cd tools/tent-size-calculator
+          npm ci
+          npm run build
+
+      - name: Combine builds
+        run: |
+          mkdir -p _site
+          cp -r linen-calculator/dist _site/linen-calculator
+          cp -r dance-floor-calculator/dist _site/dance-floor-calculator
+          cp -r catering-equipment-calculator/dist _site/catering-equipment-calculator
+          cp -r seating-arrangement-builder/dist _site/seating-arrangement-builder
+          cp -r tools/tent-size-calculator/dist _site/tent-size-calculator
+
+      - name: Create index page
+        run: |
+          cat > _site/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>RentKit Event Calculators</title>
+            <style>
+              * { box-sizing: border-box; margin: 0; padding: 0; }
+              body {
+                font-family: 'DM Sans', system-ui, sans-serif;
+                background: #F2F0EA;
+                color: #0F281E;
+                min-height: 100vh;
+                padding: 2rem;
+              }
+              .container { max-width: 800px; margin: 0 auto; }
+              h1 {
+                font-size: 2rem;
+                margin-bottom: 0.5rem;
+                color: #0F281E;
+              }
+              .subtitle { color: #5a6a64; margin-bottom: 2rem; }
+              .grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+                gap: 1rem;
+              }
+              .card {
+                background: #fff;
+                border-radius: 12px;
+                padding: 1.5rem;
+                text-decoration: none;
+                color: inherit;
+                border: 1px solid #CEAF97;
+                transition: transform 0.2s, box-shadow 0.2s;
+              }
+              .card:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(15, 40, 30, 0.1);
+              }
+              .card h2 {
+                font-size: 1.1rem;
+                margin-bottom: 0.5rem;
+                color: #0F281E;
+              }
+              .card p { font-size: 0.9rem; color: #5a6a64; }
+              .icon { font-size: 2rem; margin-bottom: 0.75rem; }
+            </style>
+          </head>
+          <body>
+            <div class="container">
+              <h1>RentKit Event Calculators</h1>
+              <p class="subtitle">Free tools for event planning</p>
+              <div class="grid">
+                <a href="./linen-calculator/" class="card">
+                  <div class="icon">🍽️</div>
+                  <h2>Linen Calculator</h2>
+                  <p>Calculate tablecloths, napkins & chair covers</p>
+                </a>
+                <a href="./dance-floor-calculator/" class="card">
+                  <div class="icon">💃</div>
+                  <h2>Dance Floor Calculator</h2>
+                  <p>Size your dance floor for any event</p>
+                </a>
+                <a href="./catering-equipment-calculator/" class="card">
+                  <div class="icon">🍳</div>
+                  <h2>Catering Equipment</h2>
+                  <p>Chafing dishes, warmers & serving gear</p>
+                </a>
+                <a href="./seating-arrangement-builder/" class="card">
+                  <div class="icon">🪑</div>
+                  <h2>Seating Arrangement</h2>
+                  <p>Design your event floor plan</p>
+                </a>
+                <a href="./tent-size-calculator/" class="card">
+                  <div class="icon">⛺</div>
+                  <h2>Tent Size Calculator</h2>
+                  <p>Find the right tent for your guest count</p>
+                </a>
+              </div>
+            </div>
+          </body>
+          </html>
+          EOF
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

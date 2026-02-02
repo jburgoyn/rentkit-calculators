@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/floorplancanvas.tsx","./src/propertiespanel.tsx","./src/toolbar.tsx","./src/constants.ts","./src/createfloorplan.ts","./src/elementdefaults.ts","./src/main.tsx","./src/types.ts","./src/validation.ts","./src/vite-env.d.ts"],"version":"5.9.3"}
