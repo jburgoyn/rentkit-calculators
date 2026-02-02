@@ -23,43 +23,30 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
-          cache-dependency-path: |
-            linen-calculator/package-lock.json
-            dance-floor-calculator/package-lock.json
-            catering-equipment-calculator/package-lock.json
-            seating-arrangement-builder/package-lock.json
-            tools/tent-size-calculator/package-lock.json
 
       - name: Build Linen Calculator
-        run: |
-          cd linen-calculator
-          npm ci
-          npm run build
+        run: cd linen-calculator && npm ci && npm run build
 
       - name: Build Dance Floor Calculator
-        run: |
-          cd dance-floor-calculator
-          npm ci
-          npm run build
+        run: cd dance-floor-calculator && npm ci && npm run build
 
       - name: Build Catering Equipment Calculator
-        run: |
-          cd catering-equipment-calculator
-          npm ci
-          npm run build
+        run: cd catering-equipment-calculator && npm ci && npm run build
 
       - name: Build Seating Arrangement Builder
-        run: |
-          cd seating-arrangement-builder
-          npm ci
-          npm run build
+        run: cd seating-arrangement-builder && npm ci && npm run build
 
       - name: Build Tent Size Calculator
-        run: |
-          cd tools/tent-size-calculator
-          npm ci
-          npm run build
+        run: cd tools/tent-size-calculator && npm ci && npm run build
+
+      - name: Build Table Chair Calculator
+        run: cd table-chair-calculator && npm ci && npm run build
+
+      - name: Build Bar Beverage Calculator
+        run: cd bar-beverage-calculator && npm ci && npm run build
+
+      - name: Build Place Setting Calculator
+        run: cd place-setting-calculator && npm ci && npm run build
 
       - name: Combine builds
         run: |
@@ -69,6 +56,9 @@ jobs:
           cp -r catering-equipment-calculator/dist _site/catering-equipment-calculator
           cp -r seating-arrangement-builder/dist _site/seating-arrangement-builder
           cp -r tools/tent-size-calculator/dist _site/tent-size-calculator
+          cp -r table-chair-calculator/dist _site/table-chair-calculator
+          cp -r bar-beverage-calculator/dist _site/bar-beverage-calculator
+          cp -r place-setting-calculator/dist _site/place-setting-calculator
 
       - name: Create index page
         run: |
@@ -79,6 +69,9 @@ jobs:
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>RentKit Event Calculators</title>
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
             <style>
               * { box-sizing: border-box; margin: 0; padding: 0; }
               body {
@@ -88,7 +81,7 @@ jobs:
                 min-height: 100vh;
                 padding: 2rem;
               }
-              .container { max-width: 800px; margin: 0 auto; }
+              .container { max-width: 900px; margin: 0 auto; }
               h1 {
                 font-size: 2rem;
                 margin-bottom: 0.5rem;
@@ -97,7 +90,7 @@ jobs:
               .subtitle { color: #5a6a64; margin-bottom: 2rem; }
               .grid {
                 display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
                 gap: 1rem;
               }
               .card {
@@ -107,11 +100,12 @@ jobs:
                 text-decoration: none;
                 color: inherit;
                 border: 1px solid #CEAF97;
-                transition: transform 0.2s, box-shadow 0.2s;
+                transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
               }
               .card:hover {
                 transform: translateY(-2px);
                 box-shadow: 0 4px 12px rgba(15, 40, 30, 0.1);
+                border-color: #70C58C;
               }
               .card h2 {
                 font-size: 1.1rem;
@@ -120,22 +114,51 @@ jobs:
               }
               .card p { font-size: 0.9rem; color: #5a6a64; }
               .icon { font-size: 2rem; margin-bottom: 0.75rem; }
+              .footer {
+                margin-top: 3rem;
+                padding-top: 1.5rem;
+                border-top: 1px solid #CEAF97;
+                text-align: center;
+                color: #5a6a64;
+                font-size: 0.85rem;
+              }
+              .footer a { color: #70C58C; }
             </style>
           </head>
           <body>
             <div class="container">
               <h1>RentKit Event Calculators</h1>
-              <p class="subtitle">Free tools for event planning</p>
+              <p class="subtitle">Free tools for event planning and rental companies</p>
               <div class="grid">
+                <a href="./table-chair-calculator/" class="card">
+                  <div class="icon">🪑</div>
+                  <h2>Table & Chair Calculator</h2>
+                  <p>Calculate tables and chairs for your guest count</p>
+                </a>
+                <a href="./tent-size-calculator/" class="card">
+                  <div class="icon">⛺</div>
+                  <h2>Tent Size Calculator</h2>
+                  <p>Find the right tent size for your event</p>
+                </a>
                 <a href="./linen-calculator/" class="card">
                   <div class="icon">🍽️</div>
                   <h2>Linen Calculator</h2>
-                  <p>Calculate tablecloths, napkins & chair covers</p>
+                  <p>Tablecloths, napkins & chair covers</p>
+                </a>
+                <a href="./place-setting-calculator/" class="card">
+                  <div class="icon">🍴</div>
+                  <h2>Place Setting Calculator</h2>
+                  <p>Plates, glasses, and flatware per guest</p>
                 </a>
                 <a href="./dance-floor-calculator/" class="card">
                   <div class="icon">💃</div>
                   <h2>Dance Floor Calculator</h2>
                   <p>Size your dance floor for any event</p>
+                </a>
+                <a href="./bar-beverage-calculator/" class="card">
+                  <div class="icon">🍸</div>
+                  <h2>Bar & Beverage Calculator</h2>
+                  <p>Estimate drinks, ice, and bar equipment</p>
                 </a>
                 <a href="./catering-equipment-calculator/" class="card">
                   <div class="icon">🍳</div>
@@ -143,15 +166,13 @@ jobs:
                   <p>Chafing dishes, warmers & serving gear</p>
                 </a>
                 <a href="./seating-arrangement-builder/" class="card">
-                  <div class="icon">🪑</div>
-                  <h2>Seating Arrangement</h2>
-                  <p>Design your event floor plan</p>
+                  <div class="icon">📐</div>
+                  <h2>Seating Arrangement Builder</h2>
+                  <p>Design your event floor plan visually</p>
                 </a>
-                <a href="./tent-size-calculator/" class="card">
-                  <div class="icon">⛺</div>
-                  <h2>Tent Size Calculator</h2>
-                  <p>Find the right tent for your guest count</p>
-                </a>
+              </div>
+              <div class="footer">
+                Built by <a href="https://github.com/jburgoyn/rentkit-calculators">RentKit</a>
               </div>
             </div>
           </body>
